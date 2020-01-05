@@ -1,8 +1,8 @@
 Vue.component('computed-properties-get-set', {
     template: `
         <div>
-            <h1>Computed Properties desde Componente</h1>
-            <p>Llamado directo con computed: {{fullName}}</p>
+            <h1>Computed - Get - Set Properties desde Componente</h1>
+            <p>Llamado directo con computed-get: {{fullName}}</p>
             <p>La edad del usuario es: {{edadUsuario}} años</p>
         </div>
     `,
@@ -16,8 +16,15 @@ Vue.component('computed-properties-get-set', {
         }
     },
     computed: {
-        fullName(){
-            return `${this.usuario.nombre} ${this.usuario.apellido}`
+        fullName: {
+            get(){
+                return `${this.usuario.nombre} ${this.usuario.apellido}`
+            },
+            set(valorX){
+                let valorNuevo = valorX.split(' ');
+                this.usuario.nombre = valorNuevo[0];
+                this.usuario.apellido = valorNuevo[1];
+            }
         },
         edadUsuario(){
             let fecha = new Date().getFullYear();
@@ -26,3 +33,6 @@ Vue.component('computed-properties-get-set', {
         }
     },
 })
+
+//con el get enviamos valores
+//con el set recibimos valor y podemos cambiar
